@@ -1,3 +1,4 @@
 {
-    "mongoUri" : "mongodb://devcon:devcon123!@localhost:27017/devcon?retryWrites=true"
+    "mongoUri" : "mongodb://devcon:devcon123!@localhost:27017/devcon?retryWrites=true",
+    "jwtSecret" : "mysecrettoken"
 }
