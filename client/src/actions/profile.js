@@ -6,7 +6,9 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  GET_PROFILES,
+  GET_REPOS
 } from './types';
 
 //Get current user's profile
@@ -30,8 +32,72 @@ export const getCurrentProfile = () => async dispatch => {
   }
 };
 
-// create or update a profile
+// get all profiles
+export const getProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
 
+  try {
+    const res = await axios.get('/api/profile');
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+        dude: "that's messed up"
+      }
+    });
+  }
+};
+
+// get profile by id
+export const getProfileById = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/${userId}`);
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+        dude: "that's messed up"
+      }
+    });
+  }
+};
+
+// get Github repos
+export const getGithubRepos = username => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+        dude: "that's messed up"
+      }
+    });
+  }
+};
+
+// create or update a profile
 export const createProfile = (
   formData,
   history,
@@ -176,7 +242,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = id => async dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone.')) {
     try {
-      const res = await axios.delete('/api/profile');
+      await axios.delete('/api/profile');
       dispatch({
         type: CLEAR_PROFILE
       });
