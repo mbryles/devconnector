@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProfileItem from './ProfileItem';
+import ProfileItem from '../profiles/ProfileItem';
 import Spinner from '../layout/Spinner';
 import { getProfiles } from '../../actions/profile';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading }, match }) => {
   useEffect(() => {
-    getProfiles();
-  }, [getProfiles]);
+    getProfiles(match.params.id);
+  }, [getProfiles, match.params.id]);
 
   return (
     <Fragment>
