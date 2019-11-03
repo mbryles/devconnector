@@ -1,5 +1,5 @@
 {
-  "mongoUri": "mongodb://devcon:devcon123!@localhost:27017/devcon?retryWrites=true",
+  "mongoUri": "mongodb+srv://condev:Futur3Manat335@devconnector-yljrx.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken",
   "githubClientId": "b1fc640adb57911a1c67",
   "githubSecret": "cb6e58e45dccaea5a1e04af6955ab01b325418b1"
